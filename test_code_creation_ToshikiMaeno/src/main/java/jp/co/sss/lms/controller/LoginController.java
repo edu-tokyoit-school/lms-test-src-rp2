@@ -24,7 +24,7 @@ import jp.co.sss.lms.util.MessageUtil;
 /**
  * ログインコントローラー
  * 
- * @author 東京ITスクール
+ * @author 東京ITスクール2
  */
 @Controller
 @RequestMapping("/")
