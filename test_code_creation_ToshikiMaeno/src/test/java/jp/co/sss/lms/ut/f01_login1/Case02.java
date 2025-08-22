@@ -111,44 +111,30 @@ public class Case02 {
 	@Test
 	public void testCase2_1() throws InterruptedException {
 		String suffix = null;
-		//chromeDriver = new ChromeDriver();
 
 		//自分自身をインスタンス化して渡す
 		Case02 instance = new Case02();
 
 		// 指定のURLの画面を開く
 		WebDriverUtils.goTo("http://localhost:8080/lms/");
-		//chromeDriver.get("http://localhost:8080/lms/");
 		WebDriverUtils.scrollTo(0);
 
 		suffix = "01_ログイン前(未登録ユーザー)";
 
 		WebDriverUtils.getEvidence(instance, suffix);
 
-		//System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
-		//chromeDriver = new ChromeDriver();
-
-		//chromeDriver.get("http://localhost:8080/lms/");
-
 		// ユーザー名とパスワードを入力
 
 		WebElement username = WebDriverUtils.getUserName();
 		WebElement password = WebDriverUtils.getPassword();
-		//WebElement username = chromeDriver.findElement(By.id("loginId"));
-		//WebElement password = chromeDriver.findElement(By.id("password"));
 
 		username.sendKeys("StudentZZ001");
 		password.sendKeys("StudentZZ001");
 
 		// ログインボタンをクリック
-		//WebElement loginBtn = chromeDriver.findElement(By.className("btn_btn-primary"));
-		//WebElement loginBtn = chromeDriver.findElement(By.cssSelector(".btn.btn-primary"));
 		WebElement loginBtn = WebDriverUtils.getLoginBtn();
 
 		loginBtn.click();
-
-		//WebDriverUtils.scrollTo(0);
-		//WebDriverUtils.pageLoadTimeout(20);
 
 		// 5秒待つ 
 		Thread.sleep(5000);
