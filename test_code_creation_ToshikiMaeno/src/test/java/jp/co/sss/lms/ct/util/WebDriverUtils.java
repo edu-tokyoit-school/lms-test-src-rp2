@@ -91,9 +91,22 @@ public class WebDriverUtils {
 		File tempFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
 		try {
 			//String className = instance.getClass().getEnclosingClass().getSimpleName();
-			String className = "あ";
+			//String className = "あ";
+			//Class<? extends Case01> className = (Class<? extends Case01>) instance.getClass();
+			String className = instance.getClass().getSimpleName();
+			//String className = Thread.currentThread().getStackTrace()[2].getClassName();
+
 			//String methodName = instance.getClass().getEnclosingMethod().getName();
-			String methodName = "お";
+			//String methodName = instance.getClass().getName();
+			//Method methodName = instance.getClass().getEnclosingMethod();
+			//Method[] methodName = instance.getClass().getMethods();
+			//Method[] methodName = instance.getClass().getMethods();
+			//String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+			//StackTraceElement[] ste = new Throwable().getStackTrace();
+			//int methodName = ste.length;
+			String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+
+			//String methodName = "お";
 			Files.move(tempFile, new File("evidence\\" + className + "_" + methodName + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
