@@ -71,7 +71,8 @@ public class WebDriverUtils {
 	 * 指定ピクセル分だけスクロール
 	 * @param pixel
 	 */
-	public static void scrollBy(String pixel) {
+	public static void scrollBy(int pixel) {
+		//((JavascriptExecutor) webDriver).executeScript("window.scrollBy(0," + pixel + ");");
 		((JavascriptExecutor) webDriver).executeScript("window.scrollBy(0," + pixel + ");");
 	}
 
@@ -79,7 +80,7 @@ public class WebDriverUtils {
 	 * 指定位置までスクロール
 	 * @param pixel
 	 */
-	public static void scrollTo(String pixel) {
+	public static void scrollTo(int pixel) {
 		((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0," + pixel + ");");
 	}
 
@@ -90,23 +91,8 @@ public class WebDriverUtils {
 	public static void getEvidence(Object instance) {
 		File tempFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
 		try {
-			//String className = instance.getClass().getEnclosingClass().getSimpleName();
-			//String className = "あ";
-			//Class<? extends Case01> className = (Class<? extends Case01>) instance.getClass();
 			String className = instance.getClass().getSimpleName();
-			//String className = Thread.currentThread().getStackTrace()[2].getClassName();
-
-			//String methodName = instance.getClass().getEnclosingMethod().getName();
-			//String methodName = instance.getClass().getName();
-			//Method methodName = instance.getClass().getEnclosingMethod();
-			//Method[] methodName = instance.getClass().getMethods();
-			//Method[] methodName = instance.getClass().getMethods();
-			//String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-			//StackTraceElement[] ste = new Throwable().getStackTrace();
-			//int methodName = ste.length;
 			String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-
-			//String methodName = "お";
 			Files.move(tempFile, new File("evidence\\" + className + "_" + methodName + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -121,8 +107,8 @@ public class WebDriverUtils {
 	public static void getEvidence(Object instance, String suffix) {
 		File tempFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
 		try {
-			String className = instance.getClass().getEnclosingClass().getSimpleName();
-			String methodName = instance.getClass().getEnclosingMethod().getName();
+			String className = instance.getClass().getSimpleName();
+			String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 			Files.move(tempFile, new File("evidence\\" + className + "_" + methodName + "_" + suffix + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();

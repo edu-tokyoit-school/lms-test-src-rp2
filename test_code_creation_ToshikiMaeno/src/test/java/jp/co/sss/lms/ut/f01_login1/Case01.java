@@ -109,20 +109,13 @@ public class Case01 {
 	public void testCase1_1() {
 
 		// 指定のURLの画面を開く
-		//WebDriverUtils.goTo("http://www.google.co.jp");
 		WebDriverUtils.goTo("http://localhost:8080/lms/");
 
+		WebDriverUtils.scrollTo(0);
+
 		//自分自身をインスタンス化して渡す
-		//Case01 instance = new Case01();
 		Case01 instance = new Case01();
 
-		//String className = instance.getClass().getEnclosingClass().getSimpleName();
-		//Class<? extends Case01> className = instance.getClass();
-
-		//String methodName = instance.getClass().getEnclosingMethod().getName();
-		//String methodName = instance.getClass().getName();
-
-		//WebDriverUtils.getEvidence(WebDriverUtils.webDriver);
 		WebDriverUtils.getEvidence(instance);
 
 		// セッション情報を事前に設定する場合、MockHttpSessionを使用する
