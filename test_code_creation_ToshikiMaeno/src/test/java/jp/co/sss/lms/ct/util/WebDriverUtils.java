@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -113,6 +114,21 @@ public class WebDriverUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static WebElement getUserName() {
+		WebElement username = webDriver.findElement(By.id("loginId"));
+		return username;
+	}
+
+	public static WebElement getPassword() {
+		WebElement password = webDriver.findElement(By.id("password"));
+		return password;
+	}
+
+	public static WebElement getLoginBtn() {
+		WebElement loginBtn = webDriver.findElement(By.cssSelector(".btn.btn-primary"));
+		return loginBtn;
 	}
 
 }

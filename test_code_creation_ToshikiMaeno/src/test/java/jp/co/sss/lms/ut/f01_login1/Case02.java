@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
@@ -35,8 +36,9 @@ import jp.co.sss.lms.util.MessageUtil;
  * MockMvcについてはテスト技法（JUnit・Mockito・MockMVC）_講義資料.pdfの34ページを参照）
  * 
  * */
+@SuppressWarnings("unused")
 @SpringBootTest
-public class Case01 {
+public class Case02 {
 
 	public MockMvc mockMvc;
 
@@ -102,41 +104,78 @@ public class Case01 {
 	 *  ・正常終了すること
 	 *  ・HTTPステータスが「200」であること
 	 *  ・返却されるViewのパスが「/login/index」であること
+	 * @throws InterruptedException 
 	 *  
 	 * @throws Exception 
 	 * */
 	@Test
-	public void testCase1_1() {
+	public void testCase2_1() throws InterruptedException {
+		String suffix = null;
+		//chromeDriver = new ChromeDriver();
+
+		//自分自身をインスタンス化して渡す
+		Case02 instance = new Case02();
 
 		// 指定のURLの画面を開く
 		WebDriverUtils.goTo("http://localhost:8080/lms/");
-
+		//chromeDriver.get("http://localhost:8080/lms/");
 		WebDriverUtils.scrollTo(0);
 
-		//自分自身をインスタンス化して渡す
-		Case01 instance = new Case01();
+		suffix = "01_ログイン前(未登録ユーザー)";
 
-		WebDriverUtils.getEvidence(instance);
+		WebDriverUtils.getEvidence(instance, suffix);
+
+		//System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
+		//chromeDriver = new ChromeDriver();
+
+		//chromeDriver.get("http://localhost:8080/lms/");
+
+		// ユーザー名とパスワードを入力
+
+		WebElement username = WebDriverUtils.getUserName();
+		WebElement password = WebDriverUtils.getPassword();
+		//WebElement username = chromeDriver.findElement(By.id("loginId"));
+		//WebElement password = chromeDriver.findElement(By.id("password"));
+
+		username.sendKeys("StudentZZ001");
+		password.sendKeys("StudentZZ001");
+
+		// ログインボタンをクリック
+		//WebElement loginBtn = chromeDriver.findElement(By.className("btn_btn-primary"));
+		//WebElement loginBtn = chromeDriver.findElement(By.cssSelector(".btn.btn-primary"));
+		WebElement loginBtn = WebDriverUtils.getLoginBtn();
+
+		loginBtn.click();
+
+		//WebDriverUtils.scrollTo(0);
+		//WebDriverUtils.pageLoadTimeout(20);
+
+		// 5秒待つ 
+		Thread.sleep(5000);
+
+		suffix = "02_ログイン後(未登録ユーザー)";
+
+		WebDriverUtils.getEvidence(instance, suffix);
 
 		// セッション情報を事前に設定する場合、MockHttpSessionを使用する
 		MockHttpSession session = new MockHttpSession();
 		ReflectionTestUtils.setField(loginController, "session", session);
-
 		// モック対象メソッドの返却値を設定
-		when(loginUserUtil.isLogin()).thenReturn(false);
+		when(loginUserUtil.isLogin()).thenReturn(true);
+		when(loginUserUtil.isStudent()).thenReturn(true);
 		when(infoService.getInfo()).thenReturn(new InfoDto());
+		when(loginUserUtil.sendDisp()).thenReturn("redirect:/course/detail");
 
 		// コントローラー記載のRequetMappingのパスを指定する
 		getRequest = MockMvcRequestBuilders.get("/");
 
 		try {
 			// 試験開始
-			// getRequestの情報を基にコントローラーを呼び出し検証を行う
+			// getRequestの情報を基にコントローラーを呼び出す。Case1_1のMvcResultは使用しない場合、省略可能
 			mockMvc.perform(getRequest) // コントローラーの呼び出し
-					//.andDo(print()) // リクエスト情報をコンソールにprint(デバッグ用)
-					.andExpect(status().isOk()) // 実行結果のHTTPステータスが200(正常終了)かどうか検証する
-					.andExpect(view().name("login/index"))// viewをreturnしているか検証する
-					.andReturn();
+					//.andDo(print()) // リクエスト情報をコンソールにprintする（デバッグ用）
+					.andExpect(status().isFound()) // 実行結果のHTTPステータスが302(リダイレクト)かどうか検証する
+					.andExpect(redirectedUrl("/course/detail")); // リダイレクトパスが正しいか検証する(ログイン機能のみ検証する)
 
 		} catch (Exception e) {
 			e.printStackTrace();
