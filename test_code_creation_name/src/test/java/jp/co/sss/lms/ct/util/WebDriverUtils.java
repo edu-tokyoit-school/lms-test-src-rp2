@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,7 +33,7 @@ public class WebDriverUtils {
 		System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
 		webDriver = new ChromeDriver();
 	}
-	
+
 	/**
 	 * インスタンス終了
 	 */
@@ -48,7 +49,7 @@ public class WebDriverUtils {
 		webDriver.get(url);
 		pageLoadTimeout(5);
 	}
-	
+
 	/**
 	 * ページロードタイムアウト設定
 	 * @param second
@@ -56,7 +57,7 @@ public class WebDriverUtils {
 	public static void pageLoadTimeout(int second) {
 		webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(second));
 	}
-	
+
 	/**
 	 * 要素の可視性タイムアウト設定
 	 * @param locater
@@ -66,21 +67,21 @@ public class WebDriverUtils {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(second));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locater));
 	}
-	
+
 	/**
 	 * 指定ピクセル分だけスクロール
 	 * @param pixel
 	 */
-	public static void scrollBy(String pixel) {
+	public static void scrollBy(int pixel) {
+		//((JavascriptExecutor) webDriver).executeScript("window.scrollBy(0," + pixel + ");");
 		((JavascriptExecutor) webDriver).executeScript("window.scrollBy(0," + pixel + ");");
 	}
 
-	
 	/**
 	 * 指定位置までスクロール
 	 * @param pixel
 	 */
-	public static void scrollTo(String pixel) {
+	public static void scrollTo(int pixel) {
 		((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0," + pixel + ");");
 	}
 
@@ -91,8 +92,8 @@ public class WebDriverUtils {
 	public static void getEvidence(Object instance) {
 		File tempFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
 		try {
-			String className = instance.getClass().getEnclosingClass().getSimpleName();
-			String methodName = instance.getClass().getEnclosingMethod().getName();
+			String className = instance.getClass().getSimpleName();
+			String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 			Files.move(tempFile, new File("evidence\\" + className + "_" + methodName + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,12 +108,27 @@ public class WebDriverUtils {
 	public static void getEvidence(Object instance, String suffix) {
 		File tempFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
 		try {
-			String className = instance.getClass().getEnclosingClass().getSimpleName();
-			String methodName = instance.getClass().getEnclosingMethod().getName();
+			String className = instance.getClass().getSimpleName();
+			String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 			Files.move(tempFile, new File("evidence\\" + className + "_" + methodName + "_" + suffix + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static WebElement getUserName() {
+		WebElement username = webDriver.findElement(By.id("loginId"));
+		return username;
+	}
+
+	public static WebElement getPassword() {
+		WebElement password = webDriver.findElement(By.id("password"));
+		return password;
+	}
+
+	public static WebElement getLoginBtn() {
+		WebElement loginBtn = webDriver.findElement(By.cssSelector(".btn.btn-primary"));
+		return loginBtn;
 	}
 
 }
