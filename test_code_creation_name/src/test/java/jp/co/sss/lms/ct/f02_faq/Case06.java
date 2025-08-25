@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -100,6 +101,8 @@ public class Case06 {
 		suffix = "01_ログイン前(登録済ユーザー)";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("ログイン | LMS", getTitle());
 	}
 
 	@Test
@@ -129,6 +132,8 @@ public class Case06 {
 		suffix = "02_ログイン後(登録済ユーザー)";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("コース詳細 | LMS", getTitle());
 	}
 
 	@Test
@@ -158,6 +163,8 @@ public class Case06 {
 		suffix = "03_ヘルプ画面遷移";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("ヘルプ | LMS", getTitle());
 	}
 
 	@Test
@@ -182,6 +189,8 @@ public class Case06 {
 
 		getEvidence(instance, suffix);
 
+		assertEquals("ヘルプ | LMS", getTitle());
+
 		// 指定のURLの画面を開く
 		goTo("http://localhost:8080/lms/faq");
 		scrollTo(0);
@@ -191,6 +200,8 @@ public class Case06 {
 		suffix = "04-2_よくある質問画面遷移(絶対パスでクリック)";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 	}
 
 	@Test
@@ -213,6 +224,8 @@ public class Case06 {
 
 		getEvidence(instance, suffix);
 
+		assertEquals("よくある質問 | LMS", getTitle());
+
 		scrollTo(250);
 
 		// 5秒待つ 
@@ -221,6 +234,8 @@ public class Case06 {
 		suffix = "05-2_該当キーワードの検索結果";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 	}
 
 	@Test
@@ -243,6 +258,8 @@ public class Case06 {
 		suffix = "06_検索結果の質問を押下";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 	}
 
 }

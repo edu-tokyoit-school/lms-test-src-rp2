@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -100,6 +101,8 @@ public class Case05 {
 		suffix = "01_ログイン前(登録済ユーザー)";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("ログイン | LMS", getTitle());
 	}
 
 	@Test
@@ -130,6 +133,8 @@ public class Case05 {
 		suffix = "02_ログイン後(登録済ユーザー)";
 
 		WebDriverUtils.getEvidence(instance, suffix);
+
+		assertEquals("コース詳細 | LMS", getTitle());
 	}
 
 	@Test
@@ -160,6 +165,8 @@ public class Case05 {
 		suffix = "03_ヘルプ画面遷移";
 
 		WebDriverUtils.getEvidence(instance, suffix);
+
+		assertEquals("ヘルプ | LMS", getTitle());
 	}
 
 	@Test
@@ -184,6 +191,8 @@ public class Case05 {
 
 		WebDriverUtils.getEvidence(instance, suffix);
 
+		assertEquals("ヘルプ | LMS", getTitle());
+
 		// 指定のURLの画面を開く
 		WebDriverUtils.goTo("http://localhost:8080/lms/faq");
 		WebDriverUtils.scrollTo(0);
@@ -193,6 +202,8 @@ public class Case05 {
 		suffix = "04-2_よくある質問画面遷移(絶対パスでクリック)";
 
 		WebDriverUtils.getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 	}
 
 	@Test
@@ -221,6 +232,8 @@ public class Case05 {
 
 		WebDriverUtils.getEvidence(instance, suffix);
 
+		assertEquals("よくある質問 | LMS", getTitle());
+
 		WebDriverUtils.scrollTo(250);
 
 		// 5秒待つ 
@@ -229,6 +242,8 @@ public class Case05 {
 		suffix = "05-2_該当キーワードの検索結果";
 
 		WebDriverUtils.getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 	}
 
 	@Test
@@ -250,6 +265,8 @@ public class Case05 {
 		suffix = "06_クリアボタン押下";
 
 		WebDriverUtils.getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 	}
 
 }
