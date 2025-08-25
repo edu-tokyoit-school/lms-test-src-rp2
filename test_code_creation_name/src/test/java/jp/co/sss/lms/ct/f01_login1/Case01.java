@@ -1,7 +1,8 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -96,6 +97,8 @@ public class Case01 {
 		Case01 instance = new Case01();
 
 		getEvidence(instance);
+
+		assertEquals("ログイン | LMS", getTitle());
 
 		// セッション情報を事前に設定する場合、MockHttpSessionを使用する
 		MockHttpSession session = new MockHttpSession();

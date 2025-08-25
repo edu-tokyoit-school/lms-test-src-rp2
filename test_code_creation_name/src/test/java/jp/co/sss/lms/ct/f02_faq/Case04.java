@@ -1,7 +1,8 @@
 package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -97,6 +98,8 @@ public class Case04 {
 		Case04 instance = new Case04();
 
 		getEvidence(instance);
+
+		assertEquals("ログイン | LMS", getTitle());
 	}
 
 	@Test
@@ -115,6 +118,8 @@ public class Case04 {
 		suffix = "01_ログイン前(登録済ユーザー)";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("ログイン | LMS", getTitle());
 
 		// ユーザー名とパスワードを入力
 
@@ -135,6 +140,8 @@ public class Case04 {
 		suffix = "02_ログイン後(登録済ユーザー)";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("コース詳細 | LMS", getTitle());
 	}
 
 	@Test
@@ -165,6 +172,8 @@ public class Case04 {
 		suffix = "03_ヘルプ画面遷移";
 
 		getEvidence(instance, suffix);
+
+		assertEquals("ヘルプ | LMS", getTitle());
 	}
 
 	@Test
@@ -190,6 +199,8 @@ public class Case04 {
 
 		getEvidence(instance, suffix);
 
+		assertEquals("ヘルプ | LMS", getTitle());
+
 		// 指定のURLの画面を開く
 		goTo("http://localhost:8080/lms/faq");
 		scrollTo(0);
@@ -199,6 +210,8 @@ public class Case04 {
 		suffix = "04-2_よくある質問画面遷移(絶対パスでクリック)";
 
 		WebDriverUtils.getEvidence(instance, suffix);
+
+		assertEquals("よくある質問 | LMS", getTitle());
 
 		// モック対象メソッドの返却値を設定
 		when(loginUserUtil.isLogin()).thenReturn(true);

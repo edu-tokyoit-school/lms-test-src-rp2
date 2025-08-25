@@ -117,6 +117,15 @@ public class WebDriverUtils {
 	}
 
 	/**
+	 * タイトル取得
+	 * @return 
+	 */
+	public static String getTitle() {
+		String title = webDriver.getTitle();
+		return title;
+	}
+
+	/**
 	 * ログインID取得
 	 */
 	public static WebElement getUserName() {
