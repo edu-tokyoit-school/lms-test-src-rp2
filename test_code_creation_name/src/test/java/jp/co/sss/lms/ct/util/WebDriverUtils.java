@@ -164,4 +164,44 @@ public class WebDriverUtils {
 		return FAQ;
 	}
 
+	/**
+	 * キーワード検索取得
+	 */
+	public static WebElement getKeyword() {
+		WebElement keyword = webDriver.findElement(By.cssSelector(".form-control"));
+		return keyword;
+	}
+
+	/**
+	 * 検索ボタン取得
+	 */
+	public static WebElement getSearchBtn() {
+		WebElement searchBtn = webDriver.findElement(By.cssSelector(".btn.btn-primary"));
+		return searchBtn;
+	}
+
+	/**
+	 * クリアボタン取得
+	 */
+	public static void getClearBtn() {
+
+		webDriver.findElement(By.xpath("//input[@value='クリア']")).click();
+	}
+
+	/**
+	 * カテゴリー検索の「【研修関係】」情報取得
+	 */
+	public static WebElement getTrainingRelated() {
+		WebElement trainingRelated = webDriver.findElement(By.partialLinkText("【研修関係】"));
+		return trainingRelated;
+	}
+
+	/**
+	 * 「キャンセル料・途中退校について」情報取得
+	 */
+	public static WebElement getSearchResultFAQ() {
+		WebElement searchresultFAQ = webDriver.findElement(By.xpath("//span[text()='キャンセル料・途中退校について']"));
+		return searchresultFAQ;
+	}
+
 }
