@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト ログイン機能①
@@ -35,14 +36,53 @@ public class Case03 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		// 指定のURLの画面を開く
+		goTo("http://localhost:8080/lms/");
+
+		scrollTo(0);
+
+		//自分自身をインスタンス化して渡す
+		Case03 instance = new Case03();
+
+		getEvidence(instance);
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
-	void test02() {
-		// TODO ここに追加
+	void test02() throws InterruptedException {
+		String suffix = null;
+
+		//自分自身をインスタンス化して渡す
+		Case03 instance = new Case03();
+
+		// 指定のURLの画面を開く
+		goTo("http://localhost:8080/lms/");
+		scrollTo(0);
+
+		suffix = "01_ログイン前(登録済ユーザー)";
+
+		getEvidence(instance, suffix);
+
+		// ユーザー名とパスワードを入力
+
+		WebElement username = getUserName();
+		WebElement password = getPassword();
+
+		username.sendKeys("StudentAA01");
+		password.sendKeys("StudentAA01A");
+
+		// ログインボタンをクリック
+		WebElement loginBtn = getLoginBtn();
+
+		loginBtn.click();
+
+		// 5秒待つ 
+		Thread.sleep(5000);
+
+		suffix = "02_ログイン後(登録済ユーザー)";
+
+		getEvidence(instance, suffix);
 	}
 
 }

@@ -116,19 +116,52 @@ public class WebDriverUtils {
 		}
 	}
 
+	/**
+	 * ログインID取得
+	 */
 	public static WebElement getUserName() {
 		WebElement username = webDriver.findElement(By.id("loginId"));
 		return username;
 	}
 
+	/**
+	 * パスワード取得
+	 */
 	public static WebElement getPassword() {
 		WebElement password = webDriver.findElement(By.id("password"));
 		return password;
 	}
 
+	/**
+	 * ログインボタン取得
+	 */
 	public static WebElement getLoginBtn() {
 		WebElement loginBtn = webDriver.findElement(By.cssSelector(".btn.btn-primary"));
 		return loginBtn;
+	}
+
+	/**
+	 * 機能タブ取得
+	 */
+	public static WebElement getFunctionTab() {
+		WebElement functionTab = webDriver.findElement(By.cssSelector(".dropdown-toggle"));
+		return functionTab;
+	}
+
+	/**
+	 * ヘルプリンク取得
+	 */
+	public static WebElement getHelpLink() {
+		WebElement helpLink = webDriver.findElement(By.linkText("ヘルプ"));
+		return helpLink;
+	}
+
+	/**
+	 * よくある質問リンク取得
+	 */
+	public static WebElement getFAQ() {
+		WebElement FAQ = webDriver.findElement(By.linkText("よくある質問"));
+		return FAQ;
 	}
 
 }

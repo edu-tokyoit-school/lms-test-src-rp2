@@ -36,7 +36,6 @@ public class Case02 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
 		// 指定のURLの画面を開く
 		goTo("http://localhost:8080/lms/");
 
