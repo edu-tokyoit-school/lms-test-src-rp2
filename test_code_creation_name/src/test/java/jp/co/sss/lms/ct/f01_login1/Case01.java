@@ -36,6 +36,16 @@ public class Case01 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		// TODO ここに追加
+		// 指定のURLの画面を開く
+		goTo("http://localhost:8080/lms/");
+
+		scrollTo(0);
+
+		//自分自身をインスタンス化して渡す
+		Case01 instance = new Case01();
+
+		getEvidence(instance);
+
 	}
 
 }
